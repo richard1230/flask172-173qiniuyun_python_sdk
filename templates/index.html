@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
+    <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
+    <script src="{{ url_for('static',filename='zlqiniu.js') }}"></script>
+
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            zlqiniu.setUp({
+                {#这里的域名为自己申请的账号所拥有的那个测试域名,注意，这里的斜杠不能少，否则会出bug#}
+                'domain': 'q35lhq667.bkt.clouddn.com/',
+                'browse_btn': 'upload-btn',
+                'uptoken_url': '/uptoken/',
+                'success': function (up, file, info) {
+                    console.log(file);
+                    var image_url = file.name;
+                    var imageInput = document.getElementById('image-input');
+                    imageInput.value = image_url;
+
+                    var img = document.getElementById('img');
+                    img.setAttribute('src', image_url);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<button id="upload-btn">上传文件</button>
+<input type="text" id="image-input">
+<img src="" alt="" id="img">
+
+</body>
+</html>
